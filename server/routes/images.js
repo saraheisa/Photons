@@ -8,6 +8,8 @@ const imageRouter = Router();
 
 const unlinkAsync = promisify(fs.unlink);
 
+const photoDir = path.resolve(__dirname);
+
 const filename = (request, file, callback) => {
   callback(null, file.originalname); // can use this to change the original name like appending the date using Date.now()
 };
@@ -49,6 +51,13 @@ imageRouter.post("/", upload.single("photo"), async (req, res) => {
 imageRouter.delete("/:name", async(req, res) => {
   await unlinkAsync(`server/uploads/${req.params.name}`);
   return res.status(200).json({ success: true });
+});
+
+imageRouter.get("/:name",  (req, res) => {
+  console.log(`dirname ${photoDir}`);
+  console.log(`file path ../uploads/${req.params.name}`);
+  return res.sendFile(`../uploads/${req.params.name}` , { root : photoDir});
+  // return res.status(200).sendFile(`/server/uploads/${req.params.name}`);
 });
 
 module.exports = imageRouter;

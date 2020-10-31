@@ -49,13 +49,29 @@ imageRouter.post("/", upload.single("photo"), async (req, res) => {
 });
 
 imageRouter.delete("/:name", async(req, res) => {
-  await unlinkAsync(`server/uploads/${req.params.name}`);
-  return res.status(200).json({ success: true });
+
+  const imagePath = `server/uploads/${req.params.name}`;
+
+  fs.access(imagePath, fs.F_OK, async (err) => {
+    if (err) {
+      return res.status(404).json({ error: `Image doesn't exist!`  });
+    }
+    await unlinkAsync(imagePath);
+    return res.status(200).json({ success: true });
+  });
 });
 
 imageRouter.get("/:name",  (req, res) => {
-  console.log(`dirname ${imagesDirPath}`);
-  return res.status(200).sendFile(`${imagesDirPath}/${req.params.name}`);
+  
+  const imagePath = `${imagesDirPath}/${req.params.name}`;
+
+  fs.access(imagePath, fs.F_OK, (err) => {
+    if (err) {
+      return res.status(404).json({ error: `Image doesn't exist!`  });
+    }
+    return res.status(200).sendFile(imagePath);
+  });
+
 });
 
 module.exports = imageRouter;

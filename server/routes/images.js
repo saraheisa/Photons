@@ -48,17 +48,26 @@ imageRouter.post("/", upload.array('photo'), async (req, res) => {
   return res.status(201).json({ success: true });
 });
 
-imageRouter.delete("/:name", async(req, res) => {
+imageRouter.delete("/", async (req, res) => {
 
-  const imagePath = `server/uploads/${req.params.name}`;
+  const imageNames = req.body.images;
+  
+  const notFoundImages = [];
+  const successImages = [];
 
-  fs.access(imagePath, fs.F_OK, async (err) => {
-    if (err) {
-      return res.status(404).json({ error: `Image doesn't exist!`  });
-    }
-    await unlinkAsync(imagePath);
-    return res.status(200).json({ success: true });
-  });
+  await Promise.all(imageNames.map(async (image) => {
+    const imagePath = `server/uploads/${image}`;
+    await unlinkAsync(imagePath)
+    .then(data => successImages.push(image))
+    .catch(err => notFoundImages.push(image));
+  }));
+
+  let code = notFoundImages.length > 1 ? 404 : 200;
+  return res.status(code).json({ success: successImages.length, 
+                                                notFound: notFoundImages.length, 
+                                                successImages, 
+                                                notFoundImages });
+
 });
 
 imageRouter.get("/:name",  (req, res) => {

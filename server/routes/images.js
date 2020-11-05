@@ -48,25 +48,27 @@ imageRouter.post("/", upload.array('photo'), async (req, res) => {
   return res.status(201).json({ success: true });
 });
 
-imageRouter.delete("/", async (req, res) => {
+imageRouter.delete("/", (req, res) => {
 
   const imageNames = req.body.images;
   
   const notFoundImages = [];
   const successImages = [];
 
-  await Promise.all(imageNames.map(async (image) => {
+  Promise.all(imageNames.map( (image) => {
     const imagePath = `server/uploads/${image}`;
-    await unlinkAsync(imagePath)
+    return unlinkAsync(imagePath)
     .then(data => successImages.push(image))
     .catch(err => notFoundImages.push(image));
-  }));
-
-  let code = notFoundImages.length > 1 ? 404 : 200;
-  return res.status(code).json({ success: successImages.length, 
-                                                notFound: notFoundImages.length, 
-                                                successImages, 
-                                                notFoundImages });
+  }))
+  .then(data => {
+    let code = notFoundImages.length > 1 ? 404 : 200;
+    return res.status(code).json({ success: successImages.length, 
+                                                  notFound: notFoundImages.length, 
+                                                  successImages, 
+                                                  notFoundImages });
+  })
+  .catch(err => console.log(err));
 
 });
 

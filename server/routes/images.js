@@ -37,7 +37,7 @@ const upload = multer({
   storage,
 });
 
-imageRouter.post("/", upload.array('photo'), async (req, res) => {
+imageRouter.post("/", upload.array('photo'), (req, res) => {
   //may need this code when implementing public and private use
   //console.log(!!req.file);
   //const isEmptyReq = Object.keys(req.body).length === 0;

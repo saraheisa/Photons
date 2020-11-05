@@ -1,14 +1,15 @@
 const { Router } = require("express");
 const multer = require("multer");
 const path = require("path");
-const fs = require('fs')
-const { promisify } = require('util')
+const fs = require('fs');
+const { promisify } = require('util');
+const zlib = require('zlib');
 
 const imageRouter = Router();
 
 const unlinkAsync = promisify(fs.unlink);
 
-const imagesDirPath = path.resolve(__dirname, '../uploads');
+const IMAGES_DIR_PATH = path.resolve(__dirname, '../uploads');
 
 const filename = (request, file, callback) => {
   callback(null, file.originalname); // can use this to change the original name like appending the date using Date.now()
@@ -56,7 +57,7 @@ imageRouter.delete("/", (req, res) => {
   const successImages = [];
 
   Promise.all(imageNames.map( (image) => {
-    const imagePath = `server/uploads/${image}`;
+    const imagePath = `${IMAGES_DIR_PATH}/${image}`;
     return unlinkAsync(imagePath)
     .then(data => successImages.push(image))
     .catch(err => notFoundImages.push(image));
@@ -73,8 +74,10 @@ imageRouter.delete("/", (req, res) => {
 });
 
 imageRouter.get("/:name",  (req, res) => {
+
+  const imageNames = req.body.images;
   
-  const imagePath = `${imagesDirPath}/${req.params.name}`;
+  const imagePath = `${IMAGES_DIR_PATH}/${req.params.name}`;
 
   fs.access(imagePath, fs.F_OK, (err) => {
     if (err) {

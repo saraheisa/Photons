@@ -14,14 +14,14 @@
 
 ```json
 {
-    id: id from db --> auto assign an id for now
-    created-at: date of uploading the image
-    width:
-    height:
-    description:
-    url: url to image
+    id: "1425636985",
+    created-at: "14523656565",
+    width: 200,
+    height: 200,
+    description: "an image of saturn",
+    url: "http://images.photons.com/1425636985",
     user: {
-        id: 
+        id: "14289632555"
     }
 }
 ```

@@ -14,14 +14,14 @@
 
 ```json
 {
-    id: "1425636985",
-    created-at: "14523656565",
-    width: 200,
-    height: 200,
-    description: "an image of saturn",
-    url: "http://images.photons.com/1425636985",
-    user: {
-        id: "14289632555"
+    "id": "1425636985",
+    "created-at": "14523656565",
+    "width": 200,
+    "height": 200,
+    "description": "an image of saturn",
+    "url": "http://images.photons.com/1425636985",
+    "user": {
+        "id": "14289632555"
     }
 }
 ```

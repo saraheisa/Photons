@@ -3,7 +3,6 @@ const multer = require("multer");
 const path = require("path");
 const fs = require('fs');
 const { promisify } = require('util');
-const zlib = require('zlib');
 
 const imageRouter = Router();
 

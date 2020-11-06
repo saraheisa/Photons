@@ -1,10 +1,18 @@
 # Photons
 
-`GET: /images`
+# `GET: /images`
 
-[Parameters](https://www.notion.so/032ee600282f492bb5e89296940cebad)
+## Parameters
 
-## Response:
+| Name       | Description                                                                          |
+|-------------|----------------------------------------------------------------------|
+| page        | Page number to retrieve (default = 1)                                  |
+| per_page | Number of images to retrieve per page (default = 10)         |
+| order_by | How images are ordered latest or oldest (default = latest)  |
+
+## Response
+
+```
 {
     id: id from db --> auto assign an id for now
     created-at: date of uploading the image
@@ -16,3 +24,4 @@
         id: 
     }
 }
+```

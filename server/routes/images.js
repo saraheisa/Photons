@@ -40,10 +40,10 @@ imageRouter.delete("/", (req, res) => {
       return res.status(code).json({
         success: successImages.length,
         notFound: notFoundImages.length,
-                                                  notFound: notFoundImages.length, 
+        notFound: notFoundImages.length,
         notFound: notFoundImages.length,
         successImages,
-                                                  successImages, 
+        successImages,
         successImages,
         notFoundImages
       });
@@ -67,12 +67,12 @@ imageRouter.get("/", validateGetRequest, (req, res) => {
   return res.status(200).json({ images: true });
 });
 
-imageRouter.get("/:name",  (req, res) => {
+imageRouter.get("/:name", (req, res) => {
 
   const imagePath = `${IMAGES_DIR_PATH}/${req.params.name}`;
 
-  if (!fs.existsSync(imagePath) ) {
-    return res.status(404).json({ error: `Image doesn't exist!`  });
+  if (!fs.existsSync(imagePath)) {
+    return res.status(404).json({ error: `Image doesn't exist!` });
   };
   return res.status(200).sendFile(imagePath);
 });

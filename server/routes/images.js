@@ -79,13 +79,10 @@ imageRouter.get("/:name",  (req, res) => {
   
   const imagePath = `${IMAGES_DIR_PATH}/${req.params.name}`;
 
-  fs.access(imagePath, fs.F_OK, (err) => {
-    if (err) {
-      return res.status(404).json({ error: `Image doesn't exist!`  });
-    }
-    return res.status(200).sendFile(imagePath);
-  });
-
+  if (!fs.existsSync(imagePath) ) {
+    return res.status(404).json({ error: `Image doesn't exist!`  });
+  };
+  return res.status(200).sendFile(imagePath);
 });
 
 module.exports = imageRouter;

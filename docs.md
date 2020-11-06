@@ -1,8 +1,8 @@
 # Photons
 
-# `GET: /images`
+## `GET: /images`
 
-## Parameters
+### Parameters
 
 | Name       | Description                                                                          |
 |-------------|----------------------------------------------------------------------|
@@ -10,7 +10,7 @@
 | per_page | Number of images to retrieve per page *(default = 10)*         |
 | order_by | How images are ordered latest or oldest *(default = latest)*  |
 
-## Response
+### Response
 
 ```json
 {

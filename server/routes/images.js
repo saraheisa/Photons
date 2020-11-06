@@ -47,8 +47,6 @@ imageRouter.delete("/", (req, res) => {
 
 imageRouter.get("/:name",  (req, res) => {
   
-  const imageNames = req.body.images;
-  
   const imagePath = `${IMAGES_DIR_PATH}/${req.params.name}`;
 
   if (!fs.existsSync(imagePath) ) {

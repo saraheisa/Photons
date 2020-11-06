@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require('fs');
 const { promisify } = require('util');
 const upload = require('../utilities/upload');
+const { validateGetRequest } = require('../utilities/validation');
 
 const imageRouter = Router();
 
@@ -51,7 +52,13 @@ imageRouter.delete("/", (req, res) => {
 
 });
 
-imageRouter.get("/", (req, res) => {
+imageRouter.get("/", validateGetRequest, (req, res) => {
+
+  const errors = req.errors;
+  if (errors) {
+    return res.status(400).json({ errors });
+  }
+
   const page = req.query.page || 1;
   const per_page = req.query.per_page || 10;
   const order_by = req.query.order_by || 'latest';

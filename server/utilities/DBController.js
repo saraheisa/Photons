@@ -8,16 +8,4 @@ const pool = new Pool({
     port: process.env.RDS_PORT || '5432'
 });
 
-const name = 'sarah';
-
-pool.query('INSERT INTO person (name) VALUES ($1)', [name], (err, result) => {
-    if (err) console.log(err);
-    
-    console.log(result);
-});
-
-pool.query('SELECT * FROM person', (err, result) => {
-    if (err) console.log(err);
-
-    console.log(result.rows);
-});
+module.exports = pool;

@@ -4,6 +4,7 @@ const fs = require('fs');
 const { promisify } = require('util');
 const upload = require('../utilities/upload');
 const { validateGetRequest } = require('../utilities/validation');
+const pool = require('../DB/DBController');
 
 const imageRouter = Router();
 
@@ -60,7 +61,7 @@ imageRouter.get("/", validateGetRequest, (req, res) => {
   const order_by = req.query.order_by || 'latest';
   console.log(`${page} - ${per_page} - ${order_by}`);
   // TODO: get images from DB
-  return res.status(200).json({ images: true });
+  return res.status(200).json({ connectDB: pool });
 });
 
 imageRouter.get("/:name", (req, res) => {

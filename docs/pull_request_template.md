@@ -5,12 +5,14 @@
 ## Related Issue
 
 <!-- If you write "closes" followed by the Github issue number, it will automatically close the issue for you when the PR merges -->
+closes #
 
 ## Connected Issues
 
 ## Acceptance Criteria
 
 <!-- Include AC from the Github issue -->
+- [X]
 
 ## Type of Changes
 
@@ -67,3 +69,9 @@ HTTP/1.1 200 OK
   }
 }
 ```
+## Testing Steps
+
+- From your terminal, pull down this branch with git pull origin `branch name`
+- Check that branch out with `git checkout branch name`
+- Run `npm install` to install dependencies
+- Run `npm run dev` to run the app

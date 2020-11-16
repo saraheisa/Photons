@@ -1,11 +1,11 @@
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'photons_app_db',
-    password: 'master',
-    port: '5432'
+    user: process.env.RDS_USERNAME || 'postgres',
+    host: process.env.RDS_HOSTNAME || 'localhost',
+    database: 'photons-app-db',
+    password: process.env.RDS_PASSWORD || 'master',
+    port: process.env.RDS_PORT || '5432'
 });
 
 const name = 'sarah';

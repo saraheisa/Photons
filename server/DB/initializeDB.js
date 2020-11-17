@@ -10,7 +10,7 @@ CREATE TABLE users (
 	id BIGSERIAL NOT NULL PRIMARY KEY,
 	name VARCHAR(100) NOT NULL
 );
-`
+`;
 
 const createImagesTable = `
 CREATE TABLE images (
@@ -39,4 +39,8 @@ SET DEFAULT false;
     return pool.query(`${dropTables} ${createUsersTable} ${createImagesTable}`);
 };
 
-module.exports = createTables;
+createTables()
+.then(res => console.log(res))
+.catch(err => console.log(err));
+
+pool.end();

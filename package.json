@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./server/bin/www",
-    "dev": "nodemon ./server/bin/www"
+    "dev": "nodemon ./server/bin/www",
+    "initialize-db": "node ./server/DB/initializeDB.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
